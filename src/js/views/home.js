@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
@@ -25,14 +26,29 @@ export const Home = () => {
                   <p className="card-text">
                     <span className="fw-bold">Gender: </span>
                     {character.properties.gender} <br />
-                    <span className="fw-bold">  hair color:</span> {character.properties.hair_color}{" "}
-                    <br />
+                    <span className="fw-bold"> hair color:</span>
+                    {character.properties.hair_color} <br />
                     <span className="fw-bold">eye color: </span>
                     {character.properties.eye_color} <br />
                   </p>
-                  <a href="#" className="btn btn-primary">
-                    Learn More
-                  </a>
+                  <div className="d-flex justify-content-between">
+                    <Link
+                      to={`character/detail/${character._id}`}
+                      className="btn btn-primary"
+                    >
+                      Learn More
+                    </Link>
+                    <button
+                      className="btn"
+                      onClick={() => actions.addFavoritesCharacters(character)}
+                    >
+                      {store.favoritesCharacters.includes(character) ? (
+                        <i class="fa-solid fa-star text-warning"></i>
+                      ) : (
+                        <i class="fa-regular fa-star"></i>
+                      )}
+                    </button>
+                  </div>
                 </div>
               </div>
             );
@@ -51,13 +67,29 @@ export const Home = () => {
                 <div className="card-body">
                   <h5 className="card-title"> {planet.properties.name} </h5>
                   <p className="card-text">
-                    <span className="fw-bold"> terrain: </span> {planet.properties.terrain} <br />
-                    <span className="fw-bold"> population: </span> {planet.properties.population}{" "}
-                    <br />
+                    <span className="fw-bold"> terrain: </span>
+                    {planet.properties.terrain} <br />
+                    <span className="fw-bold"> population: </span>
+                    {planet.properties.population} <br />
                   </p>
-                  <a href="#" className="btn btn-primary">
-                    Learn More
-                  </a>
+                  <div className="d-flex justify-content-between">
+                    <Link
+                      to={`/planet/detail/${planet._id}`}
+                      className="btn btn-primary"
+                    >
+                      Learn More
+                    </Link>
+                    <button
+                      className="btn"
+                      onClick={() => actions.addFavoritesPlanets(planet)}
+                    >
+                      {store.favoritesPlanets.includes(planet) ? (
+                        <i className="fa-solid fa-star text-warning"></i>
+                      ) : (
+                        <i class="fa-regular fa-star"></i>
+                      )}
+                    </button>
+                  </div>
                 </div>
               </div>
             );
